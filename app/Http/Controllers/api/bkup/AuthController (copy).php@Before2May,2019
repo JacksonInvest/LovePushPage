@@ -1,0 +1,539 @@
+<?php
+
+namespace App\Http\Controllers\api;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Validator;
+use App\User;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use App\UserProfileImages;
+use DB;
+use App\UserRequest;
+use Illuminate\Validation\Rule;
+use Twilio\Rest\Client;
+use Twilio\Jwt\ClientToken;
+
+class AuthController extends Controller
+{   
+
+    public function register(Request $request){
+
+        $validator = Validator::make($request->all(), [
+                'login_type'    => 'required|in:1,2,3,4',
+                'name'          => 'nullable|max:255',
+                'username'      => 'required|max:255',
+                'email'         => 'required|email|max:255|unique:users',
+                'phone'         => 'required|numeric|unique:users',
+                'phone_code'    => 'required',
+                'password'      => 'required|min:6|confirmed',
+                'address'       => 'required',
+                'gender'        => 'required|in:1,2',
+                'country'       => 'required',
+                'city'          => 'required',
+                'latitude'      => 'required',
+                'longitude'     => 'required',
+            ]
+            // ,[
+            //     'email.exists'      => trans('api.user.user_error'),
+            // ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+        try {
+
+            if($request->login_type == 1) {
+
+                $user               = new User;
+                $user->name         = ($request->name) ? $request->name : '';
+                $user->username     = $request->username;
+                $user->email        = $request->email;
+                $user->password     = Hash::make($request->password);
+                $user->phone        = $request->phone;
+                $user->phone_code   = $request->phone_code;
+                $user->login_type   = $request->login_type;
+                $user->country      = $request->country;
+                $user->city         = $request->city;
+                $user->address      = $request->address;
+                $user->latitude     = $request->latitude;
+                $user->longitude    = $request->longitude;
+                $user->gender       = $request->gender;
+                $user->device_type  = $request->device_type;
+                if($user->save()){
+
+                    $user_data = User::getUserById($user->id);
+                    return response()->json([
+                        'status' => 200,
+                        'data'   => $user_data,
+                        'message'=> trans('api.user.registration_success'), 
+
+                    ]);
+                }else{
+                    return response()->json([
+                        'status' => 400,
+                        'message'=> trans('api.user.something_went_wrong'), 
+
+                    ]);
+                }
+            } else {
+                // $validator = Validator::make($request->all(), [
+                //     'social_id'    => 'required',
+                // ]);
+                
+                // if ($validator->fails()) {
+                //     return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+                // }
+            }
+
+        } catch (\Exception $e) {
+            $response['status'] = 400;
+            $response['message'] = $e->getMessage();
+            return $response;
+        }
+    }
+
+    public function socailLogin(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+                'login_type'    => 'required|in:2,3,4',
+                'name'          => 'nullable|max:255',
+                'username'      => 'required|max:255',
+                'social_id'     => 'required|max:255',
+                'username'      => 'nullable|max:255',
+                'email'         => 'required|email|max:255',
+                'phone'         => 'nullable|numeric',
+                'phone_code'    => 'nullable',
+                'address'       => 'nullable',
+                'gender'        => 'required|in:1,2',
+                'country'       => 'nullable',
+                'city'          => 'nullable',
+                'latitude'      => 'nullable',
+                'longitude'     => 'nullable',
+            ]
+            // ,[
+            //     'email.exists'      => trans('api.user.user_error'),
+            // ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }   
+
+        $exist = User::where('email', $request->email)->first();
+        if($exist) {
+
+            $user_id            = $exist->id;
+            $update             = User::find($user_id);
+            $update->login_type = $request->login_type;
+            $update->social_id  = $request->social_id;
+            $update->name       = ($request->name) ? $request->name : ''; 
+            $update->username   = $request->username;
+            $update->phone      = $request->phone;
+            $update->phone_code = $request->phone_code;
+            $update->username   = $request->username;
+            $update->address    = $request->address;
+            $update->gender     = $request->gender;
+            $update->country    = $request->country;
+            $update->city       = $request->city;
+            $update->latitude   = $request->latitude;
+            $update->longitude  = $request->longitude;
+            if($update->save()) {
+
+                $user_data = User::getUserById($exist->id);
+
+                $tokenResult = $user_data->createToken('user')->accessToken;
+                return response()->json([
+                    'status' => 200,
+                    'token'  => $tokenResult,
+                    'data'   => $user_data,
+                    'message'=> trans('api.user.login_success'), 
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 400,
+                    'message'=> trans('api.something_went_wrong'), 
+                ]);
+            }
+        } else {
+            $add = new User;
+            $add->login_type = $request->login_type;
+            $add->social_id  = $request->social_id;
+            $add->name       = $request->name;
+            $add->email      = $request->email;
+            $add->username   = $request->username;
+            $add->phone      = $request->phone;
+            $add->phone_code = $request->phone_code;
+            $add->username   = $request->username;
+            $add->address    = $request->address;
+            $add->gender     = $request->gender;
+            $add->country    = $request->country;
+            $add->city       = $request->city;
+            $add->latitude   = $request->latitude;
+            $add->longitude  = $request->longitude;
+            if($add->save()) {
+
+                $user_data = User::getUserById($add->id);
+
+                $tokenResult = $add->createToken('user')->accessToken;
+                return response()->json([
+                    'status' => 200,
+                    'token'  => $tokenResult,
+                    'data'   => $user_data,
+                    'message'=> trans('api.user.login_success'), 
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 400,
+                    'message'=> trans('api.something_went_wrong'), 
+                ]);
+            }
+        }
+    }
+
+    public function createProfile(Request $request){
+
+        $validator = Validator::make($request->all(), [
+                'name'                  => 'nullable|max:255',
+                'user_id'               => 'required|exists:users,id',
+                'love_push_intention'   => 'required',
+                'relationship'          => 'required',
+                'language'              => 'required',
+                'size'                  => 'required',
+                'eyecolor'              => 'nullable|max:255',
+                'haircolor'             => 'nullable|max:255',
+                'education'             => 'required|max:255',
+                'job'                   => 'required',
+                'employer'              => 'required',
+                'hobbies'               => 'required',
+                'sexual_orientation'    => 'required|in:1,2,3',
+                'aboutme'               => 'required'
+            ]
+            // ,[
+            //     'email.exists'      => trans('api.user.user_error'),
+            // ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }  
+
+
+        try{
+            $user  = User::find($request->user_id);
+            $user->name  = $request->name;
+            $user->love_push_intention  = $request->love_push_intention;
+            $user->relationship         = $request->relationship;
+            $user->language             = $request->language;
+            $user->size                 = $request->size;
+            $user->haircolor            = $request->haircolor;
+            $user->eyecolor             = $request->eyecolor;
+            $user->education            = $request->education;
+            $user->job                  = $request->job;
+            $user->employer             = $request->employer;
+            $user->hobbies              = $request->hobbies;
+            $user->sexual_orientation   = $request->sexual_orientation;
+            $user->aboutme              = $request->aboutme;
+            $user->is_profile_complete  = 1;
+            $user->is_phone_verify      = 1;
+            if($user->save()) {
+                $user_data = User::getUserById($request->user_id);
+                return response()->json([
+                    'status' => 200,
+                    'data'   => $user_data,
+                    'message'=> trans('api.user.profile_success'), 
+
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 400,
+                    'message'=> trans('api.something_went_wrong'), 
+                ]);
+            }
+        } catch(\Exception $e){
+            return response()->json([
+                'status' => 400,
+                'message'=> $e->getMessage(), 
+            ]);
+        }
+    }
+
+    public function login(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'email',
+                Rule::exists('users')->where(function($query){
+                    $query->where('status',1);
+                })
+            ],
+            'password'          => 'required',
+            'device_token'      => 'nullable',
+            'device_unique_id'  => 'nullable'
+        ],[
+            'email.exists'      => trans('api.user.user_error'),
+        ]);
+
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'message'=>$validator->errors()->first(), 
+            ]);
+        }
+
+        $credentials = request(['email', 'password']);
+        if(!Auth::attempt($credentials)){
+            return response()->json([
+                'status' => 400,
+                'message'=> trans('api.user.password_not_matched'), 
+            ]);
+        }
+        $user = Auth::user();
+        $user_data = User::getUserById($user->id);
+        $tokenResult = $user->createToken('user')->accessToken;
+        return response()->json([
+            'status' => 200,
+            'token'  => $tokenResult,
+            'data'   => $user_data,
+            'message'=> trans('api.user.login_success'), 
+
+        ]);
+    }
+
+    
+    // public function sendCodeOnPhone($phone){
+
+    //     $verification_code = rand(1111, 9999);
+    //     $accountSid = config('app.twilio')['TWILIO_ACCOUNT_SID'];
+    //     $authToken  = config('app.twilio')['TWILIO_AUTH_TOKEN'];
+    //     $appSid     = config('app.twilio')['TWILIO_APP_SID'];
+    //     $client     = new Client($accountSid, $authToken);
+
+    //     try{
+    //         // Use the client to do fun stuff like send text messages!
+    //         $client->messages->create(
+    //         // the number you'd like to send the message to
+    //             $phone,
+    //             array(
+    //                  // A Twilio phone number you purchased at twilio.com/console
+    //                 'from' => '+16822047258', 
+    //                  // the body of the text message you'd like to send
+    //                 'body' => 'Your verification code is: '.$verification_code
+    //             )
+    //         );
+
+    //         // $response['status'] = 200;
+    //         // $response['verification_code'] = $verification_code;
+    //         // return $response;
+
+    //         return response()->json([
+    //             'status' => 200,
+    //             'data'   => {},
+    //             'verification_code' => $verification_code,
+    //             'message'=> trans('api.user.login_success'), 
+
+    //         ],200);
+    //     }catch(\Exception $e){
+    //         $response['status'] = 400;
+    //         $response['message'] = $e->getMessage();
+    //         return $response;
+    //     }
+    // }
+
+    public function sendVerificationCode(Request $request){
+        $rules = [
+                'user_id'   => 'required|numeric|exists:users,id',
+                'phone'     => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 200]);
+        }
+
+        $phone = $request->phone;
+        $verification_code = rand(1111, 9999);
+        $accountSid = config('app.twilio')['TWILIO_ACCOUNT_SID'];
+        $authToken  = config('app.twilio')['TWILIO_AUTH_TOKEN'];
+        $appSid     = config('app.twilio')['TWILIO_APP_SID'];
+        $client = new Client($accountSid, $authToken);
+        try
+        {
+            // Use the client to do fun stuff like send text messages!
+            $client->messages->create(
+            // the number you'd like to send the message to
+                $phone,
+                array(
+                     // A Twilio phone number you purchased at twilio.com/console
+                     'from' => '+16822047258', 
+                     // the body of the text message you'd like to send
+                     'body' => 'Your verification code is: '.$verification_code
+                )
+            );
+
+            $user = User::find($request->user_id);
+            $user->verification_code = $verification_code;
+            $user->save();
+
+
+            return response()->json([
+                'status' => 200,
+                'data'   => $verification_code,
+                'message'=> trans('api.user.otp_send_success'), 
+
+            ],200);
+
+            // $response['status'] = 200;
+            // $response['verification_code'] = $verification_code;
+            // $response['message'] = trans('api.user.otp_send_success');
+            // return $response;
+        }
+        catch (\Exception $e){
+
+            $user = User::find($request->user_id);
+            $user->verification_code = $verification_code;
+            $user->save();
+            
+            return response()->json([
+                'status' => 400,
+                'verification_code'   => $verification_code,
+                'message'=> $e->getMessage(), 
+            ],200);
+            // $response['status'] = 400;
+            // $response['message'] = $e->getMessage();
+            // return $response;
+        }
+    }
+
+    public function verifyCode(Request $request){
+        $rules = [
+                'user_id' => 'required|numeric|exists:users,id',
+                'verification_code'     => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+        try{
+            $user_id = $request->user_id;
+            $verification_code = $request->verification_code;
+            $user = User::find($user_id);
+            if($user->verification_code == trim($verification_code)){
+                $user->is_phone_verify = 1;
+                $user->save();
+
+                return response()->json([
+                    'status' => 200,
+                    'data'   => $user,
+                    'message'=> trans('api.user.phone_verify_success'), 
+
+                ],200);
+
+                // $response['status'] = 200;
+                // $response['message'] = trans('api.user.phone_verify_success');
+                // $response['user'] = $user;
+                // return $response;
+
+            }else{
+                return response()->json([
+                    'status' => 400,
+                    'message'=> trans('api.user.phone_verify_fail'), 
+
+                ],200);
+                // $response['status'] = 400;
+                // $response['message'] = trans('api.user.phone_verify_fail');
+                // return $response;
+            }
+
+        }catch (\Exception $e) {
+           return response()->json([
+                'status' => 400,
+                'message'=> $e->getMessage(), 
+            ],200);
+            
+        }
+    }
+
+    /**
+     * Logout user (Revoke the token)
+     *
+     * @return [string] message
+     */
+    public function logout(Request $request)
+    {   
+        $request->user()->token()->revoke();
+
+        return response()->json([
+            'status' => 200,
+            'data'   => '',
+            'message'=> trans('api.user.logout_success'), 
+
+        ]);
+    }
+
+    /*----- below api's NotUsed ------*/
+    public function forgotPassword(Request $request){
+        $rules = [
+                'phone_code'   => 'required',
+                'phone'     => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+
+        $user = User::where('phone', $request->phone)->first();
+        if(!$user){
+            $response['status'] = 400;
+            $response['message'] = trans('api.user.user_phone_not_found');
+            return $response;
+        }
+        $phonewithcode = $request->phone_code.$request->phone;
+        $result = $this->sendCodeOnPhone($phonewithcode);
+        if($result['status'] == 400){
+            $response['status'] = 400;
+            $response['message'] = $result['message'];
+            return $response;
+        }
+        $user->verification_code = $result['verification_code'];
+        $user->save();
+        $response['status'] = 200;
+        $response['verification_code'] = $result['verification_code'];
+        $response['message'] = trans('api.user.otp_send_success');
+        $response['id'] = $user->id;
+        $response['phone_code'] = $user->phone_code;
+        $response['phone'] = $user->phone;
+        return $response;
+    }
+
+    public function saveForgotPassword(Request $request){
+        $rules = [
+            'user_id'   => 'required|numeric|exists:users,id',
+            'password'    => 'required|min:6|confirmed'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+        try{
+            $user = User::find($request->user_id);
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            $response['status'] = 200;
+            $response['message'] = trans('api.user.forgot_password_success');
+            return $response;
+
+        }catch(\Exception $e){
+            $response['status'] = 400;
+            $response['message'] = $e->getMessage();
+            return $response;
+        }
+    }
+
+ 
+}

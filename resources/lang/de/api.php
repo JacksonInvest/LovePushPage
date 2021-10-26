@@ -1,0 +1,38 @@
+<?php 
+
+return array (
+
+	'user' => [
+		'user_error' => 'Benutzer existiert nicht.',
+		'login_success' => 'Login erfolgreich.',
+		'logout_success' => 'Erfolgreich abmelden.',
+		'registration_success' => 'Die Registrierung wurde erfolgreich durchgeführt.',
+		'profile_not_complete' => 'Your profile is not complete.',
+		'user_not_found'	=> 'Oops! user not found',
+		'profile_success'	=> 'Profil wurde erfolgreich erstellt.',
+		'password_change_success' => 'Das Passwort wurde erfolgreich geändert.',
+		'password_not_matched'	=> 'Dein Passwort ist ungültig.',
+		'postads_add_success'	=> 'Anzeige wurde erfolgreich hinzugefügt.',
+		'postads_edit_success'	=> 'Anzeige veröffentlichen wurde erfolgreich aktualisiert.',
+		'profile_update_success'	=> 'Das Profil wurde erfolgreich aktualisiert.',
+		'like_request_success'	=> 'Your like request has been sent successfully.',
+		'dislike_request_success'	=> 'Dislike request successfully.',
+		'submit_personality_test_success'	=> 'Personality test submit successfully.',
+		'otp_send_success'	=> 'Der Bestätigungscode wurde erfolgreich gesendet..',
+		'email_verify_success'	=> 'Ihre E-Mail wurde erfolgreich verifiziert.',
+		'phone_verify_success'	=> 'Ihre Telefonnummer wurde erfolgreich verifiziert.',
+		'phone_verify_fail'	=> 'Ihr Bestätigungscode ist falsch. Bitte geben Sie einen gültigen Bestätigungscode ein.',
+		'user_phone_not_found'	=> 'This phone no. is not registered with us.',
+		'forgot_password_success'	=> 'Your password has been changed successfully.',
+		'feed_add_success'	=> 'Feed has been added successfully.',
+		'update_setting_success'	=> 'Setting has been updated successfully.',
+		'answer_saved'	=> 'Antwort erfolgreich gespeichert.',
+		'already_answered'	=> 'Sie haben diese Frage bereits beantwortet.',
+		'match_found'	=> 'Übereinstimmung mit gleichem Benutzer gefunden.',
+		'user_blocked'  => 'Sie wurden von Admin blockiert.',
+	],
+	'something_went_wrong' => 'Etwas ist schief gelaufen.',
+	'delete_success' => 'Datensatz erfolgreich gelöscht.',
+	'add_success'    => 'Datensatz erfolgreich hinzugefügt.',
+	'already_exist'  => 'Datensatz existiert bereits.',
+);

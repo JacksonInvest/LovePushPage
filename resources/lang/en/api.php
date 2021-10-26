@@ -1,0 +1,38 @@
+<?php 
+
+return array (
+
+	'user' => [
+		'user_error' => 'User does not exist.',
+		'login_success' => 'Login successfully.',
+		'logout_success' => 'Logout successfully.',
+		'registration_success' => 'Registration has been done successfully.',
+		'profile_not_complete' => 'Your profile is not complete.',
+		'user_not_found'	=> 'Oops! user not found',
+		'profile_success'	=> 'Profile has been created successfully.',
+		'password_change_success' => 'Password has been changed successfully.',
+		'password_not_matched'	=> 'Your password is invalid.',
+		'postads_add_success'	=> 'Post has been added successfully.',
+		'postads_edit_success'	=> 'Post has been updated successfully.',
+		'profile_update_success'	=> 'Profile has been updated successfully.',
+		'like_request_success'	=> 'Your like request has been sent successfully.',
+		'dislike_request_success'	=> 'Dislike request successfully.',
+		'submit_personality_test_success'	=> 'Personality test submit successfully.',
+		'otp_send_success'	=> 'Verification code has been send successfully.',
+		'phone_verify_success'	=> 'Your phone no. has been verified successfully.',
+		'email_verify_success'	=> 'Your email has been verified successfully.',
+		'phone_verify_fail'	=> 'Your verification code is wrong, please enter valid verification code.',
+		'user_phone_not_found'	=> 'This phone no. is not registered with us.',
+		'forgot_password_success'	=> 'Your password has been changed successfully.',
+		'feed_add_success'	=> 'Feed has been added successfully.',
+		'update_setting_success'	=> 'Setting has been updated successfully.',
+		'answer_saved'	=> 'Answer saved successfully.',
+		'already_answered'	=> 'You have already answered that question.',
+		'match_found'	=> 'Match found with like user.',
+		'user_blocked'  => 'You have been blocked by Admin.',
+	],
+	'something_went_wrong' => 'Something went wrong.',
+	'delete_success' => 'Record deleted successfully.',
+	'add_success'    => 'Record added successfully.',
+	'already_exist'  => 'Record already exist.',
+);

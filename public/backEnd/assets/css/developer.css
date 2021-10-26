@@ -1,0 +1,106 @@
+.d-nn{
+  display: none;
+}
+/*.d-blk{
+  display: block !important;
+}*/
+.img-thumb{
+  height: 90px; 
+  margin-bottom: 15px; 
+  border-radius:2em;
+}
+.btn{
+	margin: 2px;
+}
+.help-block{
+	/*margin-left: 20px;*/
+	color: red;
+	text-align: center;
+}
+
+.form-group.has-error{
+	color: red;
+	text-align: center;
+}
+
+.access-div label:last-child{
+  margin-top:7px;
+  margin-left:18px;
+
+}
+
+/*user form - profile image*/
+.usr-img{
+  position: relative;  
+  margin-right: 10px; 
+  border:1x red solid; 
+  float: left;
+}
+.usr-img .del-btn{
+  position: absolute;  
+  top:2px;
+}
+.usr-img .del-btn a{
+  color:red;
+}
+.usr-img .del-btn i{
+  font-size: 18px;
+}
+
+span.note{
+  font-size: 10px;
+} 
+
+.mb-2em{
+  margin-bottom: 2em;
+}
+
+.logo1{
+  color: #fff;
+  font-weight: bold;
+}
+.logo1 img{
+  height: 28px;
+}
+.compact-sidebar  .logo1{
+  color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+}
+.site-header .navbar-nav > li .avatar img {
+  vertical-align: middle;
+}
+.navbar-nav .dropdown p{
+  width: auto; display: inline-block;
+}
+.m-t-10{
+  margin-top: 10px;
+}
+.m-b-0{
+  margin-bottom:0px;
+}
+
+.reset-pass-form .box{
+  height: 390px !important; 
+}
+.has-success .help-block{
+  color: green;
+}
+.t-content h1{
+    color: #373a3c;
+}
+.tile-1 .t-icon {
+    top: 5px;
+}
+
+.usr-img.resume{
+  margin-bottom: 10px;
+}
+
+/*side bar*/
+.site-sidebar .sidebar-menu li > a:hover, .site-sidebar .sidebar-menu li.active1 > a {
+    color: #fff;
+}
+.site-sidebar .sidebar-menu li > a:hover, .site-sidebar .sidebar-menu li.active1 > a {
+    color: #fff;
+}

@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers\api;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Validator;
+use App\User;
+use Auth;
+use App\Question;
+use DB;
+use App\QuestionDesc;
+use App\UserAttemptQuestion;
+use App\UserAttemptQuesAnswer;
+use Illuminate\Validation\Rule;
+
+class PersonalityTestController extends Controller
+{   
+    public function questioons(Request $request) {
+
+        $language_id = $this->getLanguageId();
+        // echo $language_id; die;
+
+        $questions = Question::getAllActiveQuestion($language_id);
+
+        return response()->json([
+            'status' => 200,
+            'data'   => $questions,
+            'message'=> 'Personality test questons', 
+        ]);
+    }
+
+
+    //User answer for a single question
+    public function userAnswerSave(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+                'user_id'     => 'required|exists:users,id',
+                'question_id' => 'required|exists:questions,id',
+                'option_ids'  => 'required',
+            ]
+            // ,[
+            //     'email.exists'      => trans('api.user.user_error'),
+            // ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+
+        $user_id = $request->user_id;
+
+        $exist = UserAttemptQuestion::where('user_id', $user_id)
+                                    ->where('question_id', $request->question_id)
+                                    ->first();
+        if($exist) {
+            return response()->json([
+                'status' => 400,
+                'message'=> trans('api.user.already_answered'),
+            ]);   
+        }
+
+        $add = new UserAttemptQuestion;
+        $add->user_id     = $user_id;
+        $add->question_id = $request->question_id;
+        if($add->save()) {
+
+            $option_ids = explode( ',', $request->option_ids);
+
+            foreach ($option_ids as $key => $option_id) {
+                $option = new UserAttemptQuesAnswer;
+                $option->user_attempt_ques_id = $add->id;
+                $option->answer_id            = $option_id;
+                $option->save();
+            }
+
+            return response()->json([
+                'status' => 200,
+                'data'   => $add,
+                'message'=> trans('api.user.answer_saved'),
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'message'=> trans('api.something_went_wrong'),
+            ]);
+        }
+    }
+
+
+
+    public function getRecommededProfile(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+                'user_id'     => 'required|exists:users,id',
+            ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+
+        $user_id = $request->user_id;
+
+
+
+    }
+
+}

@@ -1,0 +1,282 @@
+1 Filter 1 question
+2.Filter
+If you pick answer 1 you will get recommendations from other users who have picked
+answer 1 or 5
+If you pick answer 2 you will get recommendations from other users who have picked
+answer 2,3,4or 5
+If you pick answer 3 you will get recommendations from other users who have picked
+answer 2,3,4 or5
+If you pick answer 4 you will get recommendations from other users who have picked
+answer 2,3,4 or5
+If you pick answer 5 you will get recommendations from other users who have picked
+answer 1,2,3,4,5
+Lovepoints for Lovematches get count together
+20 Points If both users got the same answer
+
+
+
+
+
+5 Question
+Why do you want to meet new people? Max 80P (2 answers) (very important so
+points count double = score x 2)
+
+Question 9 max 9p (because this question is not really important for matchmaking the
+score of points will be reduced by “Score x 0,15” so only 15 % of the points will
+remain)
+
+13 not exist
+
+
+------------ Questions
+
+Question 1
+
+Who are you searchin for on Love push?
+
+1 Man
+
+2 Women
+
+3 Transgender
+
+Answer = ??????
+ 
+
+ 
+
+Question 2
+
+What are you searching for?
+
+1 The great love
+
+2 Nice acquaintances
+
+3 Friendships
+
+4 Travelbuddy
+
+5 Open for everything
+
+Answer = ??????
+
+
+3 Question.
+Where is your favourite place to stay ?
+1. Outside, I love to move my self and be in nature
+2  My home is my temple
+3  places where i get to meet new interesting people
+4. A place where I can think and find new ideas
+
+Answer 1 and 3 equal 10
+Answer 2 and 4 equal 10
+All others equal 5
+
+4 Question
+Your fashion style?
+1.jeans and sneaker , i wear clothes to go somewhere and not to impress
+2.Everything got to be perfekt! My outfit has to match from my shirt down to the socks
+3.i dont care as long as it is comfortable
+4.crazy!! I create my own style
+Answer 1 and 3 equal 10
+Answer 3 and 4 equal 10
+Answer 2 and 4 equal 10
+Answer 1 and 2 equal 0
+Answer 2 and 3 equal 0
+All others equal 5
+
+5 Question
+Why do you want to meet new people? Max 80P (2 answers) (very important so
+points count double = score x 2)
+1.Love and security
+2.Money and status
+3.Regularly free time activities / hobbys
+4.satisfaction of physical needs
+5.becoming old together
+Answer 1 and 5 equal 10
+Answer 2 and 4 equal 10
+Answer 2 and 1,3,5 equal 0
+All others equal 5
+
+6 Question Max 40
+how would you describe yourself? ( 2 answers )
+1.shy
+2.depending on my mood
+3.open minded
+4.humorous
+5.sensitive
+6.emotional
+7.optimistic
+8.pesimistic
+Answer 1 and 4 equal 10
+Answer 2 and 3 equal 10
+Answer 3 and 7 equal 5
+Answer 5 and 6 equal 10
+Answer 7 and 1,2,4,5,6 equal 0
+All others equal 5 P
+
+7 Question Max 40
+How do you spend your weekends? (3 answers)
+1. Netflix & TV
+2.Bar hopping with friends
+3.Club or other Party locations
+4.short trip
+5.wellness
+6. go out for dinner
+7.sportive activities
+8.with my family
+Answer 1 and 5 equal 10
+Answer 2 and 3 equal 10
+Answer 4 and 7 equal 10
+Answer 2 and 3 equal 10
+Answer 6 and 8 equal 10
+Answer 1 and 7 equal 0
+All others equal 5 Punkte
+
+
+Question 8 max 30
+cook,order or go out to eat?( 2 answers)
+1.I like to cook at home
+2.i like to get cooks
+3.ready meals at home
+4.delivery service
+5.Fast food
+6.restaurans
+Answer 1 and 2 equal 10
+Answer 2 and 4 equal 10
+Answer 3 and 4,5 equal 10
+All others equal 5 Punkte
+
+-- ## langauge option string not translate to german ## --
+Question 9 max 9p (because this question is not really important for matchmaking the
+score of points will be reduced by “Score x 0,15” so only 15 % of the points will
+remain)
+Wich meals do you prefer?
+1.German
+2.Italian
+3.Asian
+4.African
+5.american
+6.greek
+7.oriental
+8.international
+Same answers 20
+all others equal 5 Punkte
+
+Question 10
+If you can sleep threw, when are you getting up?
+1.the alarm clock rings at 6 oclock so I can get the most out of the day
+2.i get up when I wake up
+3.No way to get me out of bed before 12 o clock
+Answer 2 and 3 equal 10
+All others equal 5 Punkte
+
+
+Question 11
+Which animal do you prefer?
+1.dog
+2.cat
+3. I dont like animals at all
+Answer 1 and 2 equal 5
+Answer 3 and 1,2 equal 0
+
+
+Question 12
+level of education (only mark the highest)
+1. no degree
+2. certificate of secondary Education
+3.General certificate of secondary Education
+4.Highschool / university-entrance-diploma
+5.professional education
+6.Bachelor / Masterdegree
+7.Doctor / Diploma
+Answer 1 and 2 equal 10
+Answer 1,2 and 6,7 equal 0
+All others equal 5 Punkte
+
+--- ## consider as Question no. 13 ##--
+-- ## langauge option string not translate to german ## --
+Question 14 max 60P
+What do you do with your free time? (3 answers)
+1.Sports
+2.relaxing on the couch watching TV or something else
+3.Meeting up with friends
+4.shopping
+5.reading books
+6.creative things (art&music)
+7.spiritual things (meditation,taichi..)
+8.PC & Video games
+9.buildung up property (network marketing, freelance work..)
+Answer 1 and 2 equal 0
+Answer 2 and 8 equal 10
+Answer 5 and 6,7 equal 10
+Answer 4 and 7 equal 0
+All others equal 5
+
+--- ## consider as Question no. 14 ##--
+-- ## langauge option string not translate to german ## --
+Question 15
+If you would win a vacation from love push, where would you go to?
+1.just at the ocean
+2.to the mountains for hiking or skiing
+3.Sightseeing Tour plus Museums+
+4.Adventure holdiays
+5.I don’t need to go on vacation, I like to stay at home
+Answer 1 and 2,4 equal 5
+Answer 1 and 2 equal 0
+Answer 3 and 4 equal 0
+Answer 5 and 1,2,3,4 equal 0
+All others equal 5
+
+--- ## consider as Question no. 15 ##--
+-- ## langauge option string not translate to german ## --
+Question 16 max 60 p
+What is most important refering to your dream partner? ( 3 answers)
+1.attractive appearance
+2.common interests
+3.intelligence
+4.Status and Money
+5.emphatie
+6.Loyalty
+7.honesty
+Answer 1 and 4 equal 10
+Answer 2 and 5 equal 10
+Answer 6 and 7 equal 10
+All others equal 5
+
+--- ## consider as Question no. 16 ##--
+-- ## langauge option string not translate to german ## --
+Question 17
+How important is sex for you in a relationship?
+1.very important – daily
+2.important –3 or 4 times per week
+3.one time per week is already enough
+4.not important
+Answer 1 and 4 equal 0
+Answer 1 and 2 equal 10
+Answer 3 and 4 equal 10
+
+
+--- ## consider as Question no. 17 ##--
+-- ## langauge option string not translate to german ## --
+Question 18
+Do you want to have kids with your future partner?
+1.Yes, when the right time has come
+2.No
+3.Lets see im open for everything
+Answer 1 and 3 equal 10
+Answer 1 and 2 equal 0
+Answer 2 and 3 equal 10
+
+
+--- ## consider as Question no. 18 ##--
+-- ## langauge option string not translate to german ## --
+Question 19
+Do you want to merry later on?
+1.Yes, when she / he is the right one
+2.No
+3.Lets see im open for everything
+Answer 1 and 3 equal 10
+Answer 1 and 2 equal 0
+Answer 2 and 3 equal 10

@@ -1,0 +1,217 @@
+<?php
+
+namespace App\Http\Controllers\api;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Validator;
+use App\User;
+use Auth;
+use App\Question;
+use DB;
+use App\QuestionDesc;
+use App\UserAttemptQuestion;
+use App\UserAttemptQuesAnswer;
+use Illuminate\Validation\Rule;
+
+use App\UserTest;
+use App\TestQues;
+use App\TestQuesAns;
+use App\TestQuesComparison;
+
+class PersonalityTestController extends Controller
+{   
+    public function questioons(Request $request) {
+
+        $language_id = $this->getLanguageId();
+        // echo $language_id; die;
+
+        $questions = Question::getAllActiveQuestion($language_id);
+
+        return response()->json([
+            'status' => 200,
+            'data'   => $questions,
+            'message'=> 'Personality test questions', 
+        ]);
+    }
+
+
+    //User answer for a single question
+    public function userAnswerSave(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+                'user_id'     => 'required|exists:users,id',
+                'question_id' => 'required|exists:questions,id',
+                'option_ids'  => 'required',
+            ]
+            // ,[
+            //     'email.exists'      => trans('api.user.user_error'),
+            // ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+
+        $user_id = $request->user_id;
+
+
+        if($request->question_id == 18) {
+
+            //get All tests
+            $user_tests = UserTest::getUserTests();
+            // echo "<pre>"; print_r($user_tests); //die;
+            $res = [];
+            $key = 0;
+
+            foreach ($user_tests as $key => $test) { // select one test 
+
+                // echo "<pre>"; print_r($test); die;
+                $other_tests = $this->_getOtherUsers($user_tests,$test['user_id']);
+                // echo "<pre>"; print_r($other_tests); die;
+
+
+                foreach ($test['ques'] as $key => $my_que) { //select one que
+
+                    $c_que_id = $my_que['ques_id'];
+
+                    //Now compare ans of ques of current user with all other user
+                    foreach ($other_tests as $key => $other_test) {
+                        foreach ($other_test['ques'] as $key => $other_que) {
+
+                            // if($c_que_id == $other_que['id'] ){     ////now two ques matched
+                            if($c_que_id == $other_que['ques_id'] ){     ////now two ques matched
+
+                                //now compare answers
+                                $other_test_anss = $other_que['answers'];
+
+
+                                foreach ($my_que['answers'] as $key => $my_anss) {
+
+                                    foreach ($other_test_anss as $key => $other_anss) {
+
+                                        // echo 'my_anss='.$my_anss['test_que_id']."  ";
+                                        // echo 'other_anss='.$other_anss['test_que_id']."<br>";
+
+                                        // if($my_que['test_que_id'] == $other_anss['test_que_id']) {
+                                        // if($my_anss['test_que_id'] == $other_anss['test_que_id']) {
+
+                                            // echo "1"; die;
+                                            // $res[$key]['que_id'] = $c_que_id;
+
+                                            $res[$key]['ans_id1'] = $my_anss['id'];
+                                            $res[$key]['ans_id2'] = $other_anss['id'];
+                                        
+                                            $res[$key]['que_id'] = $c_que_id;
+                                            $res[$key]['a1'] = $my_anss['ans_id'];
+                                            $res[$key]['a2'] = $other_anss['ans_id'];
+                                            ++$key;
+
+                                            // $c_value = getValueOfAnswer($my_que['ans_id']);
+                                            // $o_value = getValueOfAnswer($other_anss['ans_id']);
+
+                                            // $marks = 0;
+                                            // //que logic - start
+                                            // if($c_value == $o_value){
+                                            //     //give 20 marks
+                                            //     $marks += 20;
+                                            // } else if(){
+
+                                            // } else{
+
+                                            // }
+                                            //que logic - end
+                                        // } else {
+                                        //     // echo "2"."<br>";
+                                        // }
+                                    }
+
+                                    //
+                                }
+                                // echo "<pre>"; print_r($res); 
+
+                            }
+                        }
+                    }
+
+                    // foreach ($my_que['answers'] as $key => $other_test) {
+
+                    //     //
+                    //     if($my_que['test_que_id'] == $other_test['test_que_id']) {
+
+                    //     }
+                    // }                    
+
+                }
+                
+                // echo "<pre>"; print_r($res); die;
+
+            }
+
+            echo "<pre>"; print_r($res); die;
+
+        }
+
+        echo "1111"; die;
+
+        $check = UserTest::where('user_id', $user_id)->first();
+        if($check) {
+            $test = $check;
+        } else {
+            $test = new UserTest;
+            $test->user_id     = $user_id;
+            $test->save();
+        }
+
+            //save test questions
+            $ques = new TestQues;
+            $ques->test_id = $test->id;
+            $ques->ques_id = $request->question_id;
+            if($ques->save()) {
+
+                $option_ids = explode( ',', $request->option_ids);
+
+                foreach ($option_ids as $key => $option_id) {
+                    //save test answers
+                    $option = new TestQuesAns;
+                    $option->test_que_id = $ques->id;
+                    $option->ans_id      = $option_id;
+                    $option->save();
+                }
+            }
+
+
+            return response()->json([
+                'status' => 200,
+                'data'   => $ques,
+                'message'=> trans('api.user.answer_saved'),
+            ]);
+    }
+
+    public function _getOtherUsers($all_users,$current_user_id){
+        return Collect($all_users)->reject(function($all_user) use ($current_user_id){
+            return $all_user['user_id'] === $current_user_id;
+        });
+
+    }
+
+    public function getRecommededProfile(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+                'user_id' => 'required|exists:users,id',
+            ]
+        );
+        
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(), 'status' => 400]);
+        }
+
+        $user_id = $request->user_id;
+
+        $my_ques_ans = UserAttemptQuestion::getMyQuesAnswers($user_id);
+
+        $other_user_ques_ans = UserAttemptQuestion::getOtherUserQuesAnswers($user_id);
+        echo "<pre>"; print_r($other_user_ques_ans); die;
+
+    }
+
+}

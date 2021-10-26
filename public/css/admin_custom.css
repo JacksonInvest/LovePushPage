@@ -1,0 +1,28 @@
+.subscription-table th[scope="col"] { font-size:24px; text-align: center; vertical-align: middle;}
+.subscription-table th[scope="row"] { font-size:18px; text-transform: capitalize; vertical-align: middle; min-width: 250px;}
+.subscription-table { text-align: center;}
+.pricing { display: block;}
+.subscription-table tr td { padding: 15px 20px !important; vertical-align: middle !important; font-size:17px;}
+.subscription-table th[scope="col"]:nth-child(2), .subscription-table td:nth-child(2) { background: #222d32; border: 0; color:#fff;}
+/*.subscription-table th[scope="col"]:nth-child(2), .subscription-table td:nth-child(2) { background: #ccc; border: 0;}*/
+.subscription-table th[scope="col"]:nth-child(4), .subscription-table td:nth-child(4) { background: #367fa9; border: 0; color:#fff;}
+.subscription-table .input-text.form-control { text-align: center;}
+.subscription-table td:nth-child(2) .input-text.form-control { background: #222d32; border: 1px solid #475054; color: #fff; font-size: 17px; height: auto; line-height: normal;}
+.subscription-table td:nth-child(3) .input-text.form-control { font-size: 17px; height: auto; line-height: normal;}
+.subscription-table td:nth-child(4) .input-text.form-control { background: #367fa9; border: 1px solid #76a2bc; color: #fff; font-size: 17px; height: auto; line-height: normal;}
+.sub-table { margin: 50px auto 0;}
+.mb40 {
+    margin: 0 auto 40px;
+}
+
+@media screen and (max-width: 767px){
+	.table-responsive-sm { overflow: auto;}
+	.subscription-table tr td, .subscription-table tr th { min-width: 200px;}
+	.subscription-table th[scope="row"] { font-size:16px;}
+	.subscription-table td:nth-child(2) .input-text.form-control, .subscription-table td:nth-child(3) .input-text.form-control, .subscription-table td:nth-child(4) .input-text.form-control { font-size:16px;}
+	.subscription-table tr td { font-size:15px;}
+	.subscription-table th[scope="row"] { min-width: 150px; display: none;}
+	.subscription-table th[scope="col"]:nth-child(1) { display: none;}
+	.subscription-table tr td span.visible-xs { margin: 0 auto 6px; text-align: left; font-weight: 600; text-transform: capitalize;}
+	.subscription-table tr td { padding: 10px 20px !important;}
+}

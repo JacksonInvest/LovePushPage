@@ -1,0 +1,166 @@
+(02:59:20  IST) Akhil Sharma: Good afternoon sir
+Now i am start working on lovePush project in Personality test module
+(02:59:24  IST) Lidwin Cleetus: ok
+(02:59:27  IST) Lidwin Cleetus: FYi
+(02:59:37  IST) Lidwin Cleetus: In place of lavi rohit kumar is workikng on iOS
+(02:59:56  IST) Akhil Sharma: ok sir
+(03:00:23  IST) Akhil Sharma: i have queries regarding test cases
+(03:00:30  IST) Lidwin Cleetus: shoot 
+(03:00:40  IST) Lidwin Cleetus: tell me
+(03:01:03  IST) Akhil Sharma: wait, i will share you with detail
+(03:01:10  IST) Lidwin Cleetus: ok
+(03:11:02  IST) Akhil Sharma: 6 Question Max 40
+how would you describe yourself? ( 2 answers )
+1.shy
+2.depending on my mood
+3.open minded
+4.humorous
+5.sensitive
+6.emotional
+7.optimistic
+8.pesimistic
+Answer 1 and 4 equal 10
+Answer 2 and 3 equal 10
+Answer 3 and 7 equal 5
+Answer 5 and 6 equal 10
+Answer 7 and 1,2,4,5,6 equal 0
+All others equal 5 P
+
+If John take => 1,4
+and Marry take => 4,6
+
+Total score achieved = ?
+(03:11:16  IST) Akhil Sharma: sir, please review 
+(03:12:29  IST) Lidwin Cleetus: 20 + 5 = 25
+(03:12:59  IST) Lidwin Cleetus: first we will check if they have same answers or not which will give us 4,4 and 20 pts assigned
+(03:14:19  IST) Lidwin Cleetus: Second we will check for 1,4|2,3|3,7|5,6|7nd 1,2,4,5,6 pts assigned as per
+(03:14:23  IST) Lidwin Cleetus: and last 5
+(03:16:20  IST) Akhil Sharma: ji 
+let me check
+(03:21:27  IST) Akhil Sharma: sir, total overall points kitne achieve hoge?
+bcz Answer 1 and 4 equal 10 hai
+(03:22:24  IST) Lidwin Cleetus: total toh 25 hoga na
+(03:22:27  IST) Lidwin Cleetus: as i told above
+(03:22:33  IST) Lidwin Cleetus: 4,4 - 20
+(03:22:41  IST) Lidwin Cleetus: 1,6 - 5
+(03:22:43  IST) Lidwin Cleetus: 25
+(03:33:45  IST) Akhil Sharma: right sir
+one more example => 
+john = 1,4
+marry = 3,6
+(03:35:25  IST) Lidwin Cleetus: So check first if john and mary have same options i.e. 1,1 or 4,4 if not then 
+check for combinations - here in this case we do not have 1,3 or 1,6 or 4,3 or 4,6 
+(03:35:33  IST) Lidwin Cleetus: so it falls in last category
+(03:35:44  IST) Lidwin Cleetus: hence 5 + 5 = 10
+(03:45:42  IST) Akhil Sharma: right sir
+one more example => 
+john = 1,3
+marry = 4,6
+=>Score achieved == 10+5 = 15
+
+(03:45:54  IST) Akhil Sharma: is it right? 
+for same ques
+(03:46:40  IST) Lidwin Cleetus: how did u get 10
+(03:46:54  IST) Akhil Sharma: Answer 1 and 4 equal 10
+(03:47:02  IST) Lidwin Cleetus: so thats fine
+(03:47:04  IST) Lidwin Cleetus: correct
+(03:47:28  IST) Akhil Sharma: that's cool
+(03:48:35  IST) Akhil Sharma: Question 12
+level of education (only mark the highest)
+1. no degree
+2. certificate of secondary Education
+3.General certificate of secondary Education
+4.Highschool / university-entrance-diploma
+5.professional education
+6.Bachelor / Masterdegree
+7.Doctor / Diploma
+Answer 1 and 2 equal 10
+Answer 1,2 and 6,7 equal 0
+All others equal 5 Punkte
+
+sir, iska answer review karo
+(03:48:45  IST) Akhil Sharma: Answer 1 and 2 equal 10
+Answer 1,2 and 6,7 equal 0
+(03:48:48  IST) Akhil Sharma: how?
+(03:49:09  IST) Lidwin Cleetus: what do you exactly mean to ask here
+(03:49:44  IST) Akhil Sharma: Answer 1,2 and 6,7 equal 0
+iska comparison kaise hoga
+(03:50:18  IST) Akhil Sharma: like that
+1,6 ; 1,7 ; 2,6 and 2,7
+(03:50:20  IST) Lidwin Cleetus: iska matlab hai 
+(03:50:29  IST) Lidwin Cleetus: 1,2 - points assigned 0
+(03:50:37  IST) Lidwin Cleetus: 6,7 point assinged 0
+(03:50:39  IST) Lidwin Cleetus: thats it
+(03:51:03  IST) Akhil Sharma: but 1 option mai
+Answer 1 and 2 equal 10
+(03:51:48  IST) Lidwin Cleetus: Answer 1 and 2 equal 10
+Answer 1,2 and 6,7 equal 0 
+
+Are you sure aise hi hai ?
+(03:52:01  IST) Akhil Sharma: yes sir ques 12
+(03:52:20  IST) Akhil Sharma: https://trello.com/c/reVok9ZC
+(03:52:34  IST) Akhil Sharma: esa 2 -3 questions aur be hai
+(03:53:58  IST) Lidwin Cleetus: how many answers can be marked at a time?
+(03:54:51  IST) Akhil Sharma: quest 12 mai not mentioned in document , we consider 1 ans
+(03:55:25  IST) Lidwin Cleetus: if its one answer
+(03:55:28  IST) Lidwin Cleetus: then its solved
+(03:55:58  IST) Lidwin Cleetus: 1 and 2  will be 10 
+(03:56:07  IST) Lidwin Cleetus: 1,6,7 - 0
+(03:56:16  IST) Lidwin Cleetus: 2,6,7 - 0
+(03:56:36  IST) Lidwin Cleetus: only for 1 and 2 give 10
+(03:56:40  IST) Lidwin Cleetus: rest all 0
+(03:56:45  IST) Akhil Sharma: 1,6 = 0 ;
+1,7 = 0 ; 
+2,6 = 0
+2,7 = =
+(03:56:46  IST) Akhil Sharma: 0
+(03:56:53  IST) Akhil Sharma: right?
+(03:57:35  IST) Lidwin Cleetus: ji
+(03:58:06  IST) Akhil Sharma: one more 
+Question 15
+If you would win a vacation from love push, where would you go to?
+1.just at the ocean
+2.to the mountains for hiking or skiing
+3.Sightseeing Tour plus Museums+
+4.Adventure holdiays
+5.I don’t need to go on vacation, I like to stay at home
+Answer 1 and 2,4 equal 5
+Answer 1 and 2 equal 0
+Answer 3 and 4 equal 0
+Answer 5 and 1,2,3,4 equal 0
+All others equal 5
+(03:58:14  IST) Akhil Sharma: Answer 1 and 2,4 equal 5
+Answer 1 and 2 equal 0
+
+?
+(03:58:44  IST) Lidwin Cleetus: how many answers allowed?
+(03:58:53  IST) Akhil Sharma: we consider 1
+(04:04:07  IST) Lidwin Cleetus: 1 , 2 - 5
+1, 4- 5
+
+(04:04:11  IST) Lidwin Cleetus: 1,2 - 0
+(04:04:13  IST) Lidwin Cleetus: ignore kar
+(04:07:02  IST) Akhil Sharma: ji
+(04:07:11  IST) Akhil Sharma: Question 18
+Do you want to have kids with your future partner?
+1.Yes, when the right time has come
+2.No
+3.Lets see im open for everything
+Answer 1 and 3 equal 10
+Answer 1 and 2 equal 0
+Answer 2 and 3 equal 10
+
+
+(04:07:35  IST) Akhil Sharma: not mention to give 5 points for all other cases
+(04:07:41  IST) Akhil Sharma: 5 dena hai ya nhi?
+(04:08:57  IST) Lidwin Cleetus: nahi mention toh mat de kuch
+(04:10:38  IST) Akhil Sharma: ok sir
+Last bass
+Answer 1 and 3 equal 10
+if 1,3 = 10
+other case 3,1 = 10 be dena hai
+reverse hoga
+(04:11:06  IST) Lidwin Cleetus: ji
+(04:11:20  IST) Akhil Sharma: all done
+Thank you sir
+(04:11:29  IST) Lidwin Cleetus: no probz
